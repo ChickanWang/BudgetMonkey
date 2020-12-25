@@ -6,13 +6,13 @@ const User = require('./models/User');
 const cookieExtractor = req => {
     let token = null;
     if(req && req.cookies)
-        token = req.cookies["jVvEiDLsbEN3oX0zghFCq7Ziqr4m9Zqh"];
+        token = req.cookies[process.env.SECRET];
     return token;
 }
 
 passport.use(new JwtStrategy({
     jwtFromRequest: cookieExtractor,
-    secretOrKey: "jVvEiDLsbEN3oX0zghFCq7Ziqr4m9Zqh"},
+    secretOrKey: process.env.SECRET},
     (payload, done)=>{
         User.findById({_id: payload.sub},(err,user)=>{
             if(err)

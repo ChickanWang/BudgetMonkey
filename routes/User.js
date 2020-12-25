@@ -6,6 +6,11 @@ const JWT = require('jsonwebtoken');
 const User = require('../models/User');
 const Spendings = require('../models/Spendings');
 
+userRouter.get('/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
+    const {username,role} = req.user;
+    res.status(200).json({isAuthenticated : true, user : {username,role}});
+});
+
 userRouter.post('/signup',(req,res)=>{
     const {name, username, password} = req.body;
     User.findOne({username},(err,user)=>{
@@ -27,22 +32,22 @@ userRouter.post('/signup',(req,res)=>{
 
 const signToken = userID =>{
     return JWT.sign({
-        iss: "jVvEiDLsbEN3oX0zghFCq7Ziqr4m9Zqh",
+        iss: process.env.SECRET,
         sub: userID
-    }, "jVvEiDLsbEN3oX0zghFCq7Ziqr4m9Zqh", {expiresIn : "1h"});
+    }, process.env.SECRET, {expiresIn : "1h"});
 }
 
 userRouter.post('/login',passport.authenticate('local', {session: false}),(req,res)=>{
     if(req.isAuthenticated()){
         const {_id,name,username} = req.user;
         const token = signToken(_id);
-        res.cookie('jVvEiDLsbEN3oX0zghFCq7Ziqr4m9Zqh',token,{httpOnly: true, sameSite: true});
+        res.cookie(process.env.SECRET,token,{httpOnly: true, sameSite: true});
         res.status(200).json({isAuthenticated: true, user: {name, username}});
     }
 })
 
 userRouter.get('/logout',passport.authenticate('jwt', {session: false}),(req,res)=>{
-    res.clearCookie('jVvEiDLsbEN3oX0zghFCq7Ziqr4m9Zqh');
+    res.clearCookie(process.env.SECRET);
     res.json({user:{username:'', name: ''}, success: true});
 })
 
