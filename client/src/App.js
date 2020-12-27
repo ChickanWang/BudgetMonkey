@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
-import Form from './Form';
-import './App.css';
+import Login from './Components/Login';
+import Home from './Components/Homepage';
+import Register from './Components/Register';
 import { AuthContext } from './Context/AuthContext'; 
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import NavBar from './Components/Navbar'
@@ -14,7 +15,9 @@ function App() {
     <Router>
       <div className="App">
         <NavBar />
-        <Form />
+        <Route exact path = "/user/login" component = {Login} />
+        <Route exact path = "/user/register" component = {Register} />
+        <Route exact path = "/" component = {Home} />
       </div>
     </Router>
   );

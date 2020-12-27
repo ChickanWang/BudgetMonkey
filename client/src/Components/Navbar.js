@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 import {AuthContext} from '../Context/AuthContext'
 import AuthService from '../Services/AuthService'
 
-
 function Logout() {
     const {setIsAuthenticated, setUser} = useContext(AuthContext);
 
@@ -42,7 +41,7 @@ function AuthenticatedNav() {
             </li>
         </Link>
 
-        <button className = "btn btn-link nav-item nav-link" OnClick={Logout}>Logout</button>
+        <Link to= "/"><button className = "btn btn-link nav-item nav-link" OnClick={Logout}>Logout</button></Link>
     </>)
 }
 

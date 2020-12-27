@@ -7,8 +7,8 @@ const User = require('../models/User');
 const Spendings = require('../models/Spendings');
 
 userRouter.get('/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
-    const {username,role} = req.user;
-    res.status(200).json({isAuthenticated : true, user : {username,role}});
+    const {username} = req.user;
+    res.status(200).json({isAuthenticated : true, user : {username}});
 });
 
 userRouter.post('/signup',(req,res)=>{
@@ -41,13 +41,13 @@ userRouter.post('/login',passport.authenticate('local', {session: false}),(req,r
     if(req.isAuthenticated()){
         const {_id,name,username} = req.user;
         const token = signToken(_id);
-        res.cookie(process.env.SECRET,token,{httpOnly: true, sameSite: true});
+        res.cookie('access_token',token,{httpOnly: true, sameSite: true});
         res.status(200).json({isAuthenticated: true, user: {name, username}});
     }
 })
 
 userRouter.get('/logout',passport.authenticate('jwt', {session: false}),(req,res)=>{
-    res.clearCookie(process.env.SECRET);
+    res.clearCookie('access_token');
     res.json({user:{username:'', name: ''}, success: true});
 })
 
