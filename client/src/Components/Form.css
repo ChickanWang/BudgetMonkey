@@ -3,12 +3,19 @@
     max-width: 320px;
     padding: 10px 0;
 }
+.card {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 10px 0;
+}
 .Submit {
     position: absolute;
     top: 50%;
 }
 .wrapper {
-    text-align: center;
     padding-top: 20px; 
     padding-bottom: 20px;
+}
+.center {
+    text-align: center;
 }

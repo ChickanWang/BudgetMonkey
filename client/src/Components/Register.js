@@ -54,7 +54,7 @@ class Register extends React.Component {
         <div>
           <h1 className="form-group wrapper" font-size="16px" font-weight="bold"> Register</h1>
           
-          <div className= "wrapper">
+          <div className= "wrapper center">
             <small className="form-group">Have an account? <a href="/user/login">Log in!</a></small>
           </div>
 
@@ -95,7 +95,7 @@ class Register extends React.Component {
                 autoComplete="current-password"/>
             </div>
 
-            <div className= "wrapper"> 
+            <div className= "wrapper center"> 
                 <Button className="Submit" variant="contained" color="primary" type="submit" value="Submit">Make Account!</Button>
             </div>
 

@@ -48,9 +48,9 @@ class Form extends React.Component {
     render() {
       return (
         <div>
-          <h1 className="form-group wrapper" font-size="16px" font-weight="bold"> Log in</h1>
+          <h1 className="form-group wrapper center" font-size="16px" font-weight="bold"> Log in</h1>
           
-          <div className= "wrapper">
+          <div className= "wrapper center">
             <small className="form-group">Don't have an account? <a href="/user/register">Sign up!</a></small>
           </div>
 
@@ -79,7 +79,7 @@ class Form extends React.Component {
                 autoComplete="current-password"/>
             </div>
 
-            <div className= "wrapper"> 
+            <div className= "wrapper center"> 
                 <Button className="Submit" variant="contained" color="primary" type="submit" value="Submit">Login</Button>
             </div>
 

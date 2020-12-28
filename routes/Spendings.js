@@ -46,7 +46,14 @@ spenderRouter.post('/delete',passport.authenticate('jwt', {session: false}), (re
 });
 
 spenderRouter.get('/getmoneys',passport.authenticate('jwt', {session: false}),(req,res)=>{
-    res.send(req.user.spendings);
+    User.findById({_id : req.user._id}).populate('spendings').exec((err,document)=>{
+        if(err)
+            res.status(500).json({message : {msgBody : "Error has occured", msgError: true}});
+        else{
+            res.status(200).json({spendings : document.spendings, authenticated : true});
+        }
+    });
 })
+
 
 module.exports = spenderRouter;

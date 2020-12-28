@@ -41,7 +41,7 @@ function AuthenticatedNav() {
             </li>
         </Link>
 
-        <Link to= "/"><button className = "btn btn-link nav-item nav-link" OnClick={Logout}>Logout</button></Link>
+        <Link to= "/"><button className = "btn btn-link nav-item nav-link" onClick={Logout}>Logout</button></Link>
     </>)
 }
 
