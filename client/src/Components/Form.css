@@ -3,10 +3,21 @@
     max-width: 320px;
     padding: 10px 0;
 }
+.label-group {
+    margin: 0 auto;
+    max-width: 350px;
+    padding: 10px 0;
+}
 .card {
     margin: 0 auto;
     max-width: 500px;
     padding: 10px 0;
+}
+.cardname {
+    padding: 3px 0;
+}
+.carddate {
+    padding-top: 5px; 
 }
 .Submit {
     position: absolute;
@@ -18,4 +29,10 @@
 }
 .center {
     text-align: center;
+}
+.left {
+    padding-left: 20px;
+}
+body {
+    font-family: 'Open Sans'
 }

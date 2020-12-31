@@ -32,12 +32,11 @@ class Register extends React.Component {
     handleChange(event) {
       event.preventDefault();
       this.setState({[event.target.name]: event.target.value});
-      console.log(this.state);
     }
   
     handleSubmit(event) {
       event.preventDefault();
-      console.log(this.state)
+      if(this.state.password.length > 4) {
       AuthService.register(this.state).then(data => {
         const {message} = data;
         this.emptyForm();
@@ -46,7 +45,14 @@ class Register extends React.Component {
                 message: message
             }
         });
-      })
+      })}
+
+      else {
+        this.setState(() => {
+          return {
+              message: "Password must be greater than 4 characters"
+          }
+      })}
     }
   
     render() {
@@ -84,7 +90,7 @@ class Register extends React.Component {
             
             <div className= "form-group">
             <label for= "password">Password:</label>
-              <TextField
+              <TextField required
                 name= "password"
                 className="form-control"
                 placeholder="Password"

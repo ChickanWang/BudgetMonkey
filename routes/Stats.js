@@ -6,6 +6,7 @@ const JWT = require('jsonwebtoken');
 const Spendings = require('../models/Spendings');
 //const Idee = require('../models/Idee');
 const User = require('../models/User');
+const { ensureAuthenticated } = require('../auth');
 
 // Finds the stats of a particular category of a particular month n year.
 function MonthStats(array, prop, month, year) {
@@ -74,7 +75,7 @@ function Stats(array) {
     return TotalStatstics;
 }
 
-statsRouter.get('/stats',passport.authenticate('jwt', {session: false}),(req,res)=>{
+statsRouter.get('/stats',ensureAuthenticated,(req,res)=>{
     res.send(Stats(req.user.spendings));
 });
 

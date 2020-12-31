@@ -4,72 +4,15 @@ import {Link} from 'react-router-dom'
 import {AuthContext} from '../Context/AuthContext'
 import AuthService from '../Services/AuthService'
 
-function Logout() {
-    const {setIsAuthenticated, setUser} = useContext(AuthContext);
-
-    AuthService.logout().then(data => {
-        if (data.success) {
-            setUser(data.user);
-            setIsAuthenticated(false);
-        }
-    })
-}
-
-function AuthenticatedNav() {
-    return(<> 
-        <Link to= "/">
-            <li className="nav-item nav-link">
-                Homepage
-            </li>
-        </Link>
-
-        <Link to= "/user/expense">
-            <li className="nav-item nav-link">
-                Add Expense
-            </li>
-        </Link>
-
-        <Link to= "/user/spendings">
-            <li className="nav-item nav-link">
-                View Spendings
-            </li>
-        </Link>
-
-        <Link to= "/user/stats">
-            <li className="nav-item nav-link">
-                View Stats
-            </li>
-        </Link>
-
-        <Link to= "/"><button className = "btn btn-link nav-item nav-link" onClick={Logout}>Logout</button></Link>
-    </>)
-}
-
-function UnauthenticatedNav() {
-    return(<>
-        <Link to= "/">
-            <li className="nav-item nav-link">
-                Homepage
-            </li>
-        </Link>
-
-        <Link to= "/user/login">
-            <li className="nav-item nav-link">
-                Login
-            </li>
-        </Link>
-
-        <Link to= "/user/register">
-            <li className="nav-item nav-link">
-                New Account
-            </li>
-        </Link>
-    </>)
-
-}
-
 function NavBar() {
-    const {isAuthenticated, user, setIsAuthenticated, setUser} = useContext(AuthContext);
+    const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
+
+    function Logout() {
+        AuthService.logout().then(() => {
+            setIsAuthenticated(false);
+        })
+
+    }
 
     return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -80,7 +23,59 @@ function NavBar() {
             </button>
             <div className="collapse navbar-collapse" id="navbarText">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                { isAuthenticated ? AuthenticatedNav() : UnauthenticatedNav()}
+                
+                { isAuthenticated ?
+
+                // Authenticated Navbar
+                <> 
+                    <Link to= "/">
+                        <li className="nav-item nav-link">
+                            Homepage
+                        </li>
+                    </Link>
+
+                    <Link to= "/user/expense">
+                        <li className="nav-item nav-link">
+                            Add Expense
+                        </li>
+                    </Link>
+
+                    <Link to= "/user/spendings">
+                        <li className="nav-item nav-link">
+                            View Spendings
+                        </li>
+                    </Link>
+
+                    <Link to= "/user/stats">
+                        <li className="nav-item nav-link">
+                            View Stats
+                        </li>
+                    </Link>
+
+                    <Link to= "/"><button className = "btn btn-link nav-item nav-link" onClick={Logout}>Logout</button></Link>
+                </>
+                
+                // Unauthenticated Navbar
+                :<>
+                    <Link to= "/">
+                        <li className="nav-item nav-link">
+                            Homepage
+                        </li>
+                    </Link>
+
+                    <Link to= "/user/login">
+                        <li className="nav-item nav-link">
+                            Login
+                        </li>
+                    </Link>
+
+                    <Link to= "/user/register">
+                        <li className="nav-item nav-link">
+                            New Account
+                        </li>
+                    </Link>
+                </>}
+
             </ul>
             </div>
         </div>

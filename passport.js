@@ -1,36 +1,39 @@
-const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const JwtStrategy = require('passport-jwt').Strategy;
+const bcrypt = require('bcryptjs');
+
+// Load User model
 const User = require('./models/User');
 
-const cookieExtractor = req => {
-    let token = null;
-    if(req && req.cookies)
-        token = req.cookies["access_token"];
-    return token;
-}
+module.exports = function(passport) {
+  passport.use(
+    new LocalStrategy({ usernameField: 'username' }, (username, password, done) => {
+      // Match user
+      User.findOne({
+        username: username
+      }).then(user => {
+        if (!user) {
+          return done(null, false, { message: "That username doesn't exist" });
+        }
 
-passport.use(new JwtStrategy({
-    jwtFromRequest: cookieExtractor,
-    secretOrKey: process.env.SECRET},
-    (payload, done)=>{
-        User.findById({_id: payload.sub},(err,user)=>{
-            if(err)
-                return done(err,false);
-            if(user)
-                return done(null,user);
-            else
-                return done(null,false);
-        })
-    }
-))
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+            if (err) throw err;
+            if (isMatch) {
+              return done(null, user);
+            } else {
+              return done(null, false);
+            };
+        }) 
+        });
+      })
+    );
 
-passport.use(new LocalStrategy((username,password,done)=>{
-    User.findOne({username},(err,user)=>{
-        if(err)
-            return done(err);
-        if(!user)
-            return done(null,false);
-        user.comparePassword(password,done);
+  passport.serializeUser(function(user, done) {
+    done(null, user.id);
+  });
+
+  passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+      done(err, user);
     });
-}));
+  });
+};

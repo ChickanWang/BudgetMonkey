@@ -1,24 +1,24 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import Login from './Components/Login';
 import Home from './Components/Homepage';
 import Register from './Components/Register';
-import Spendings from './Components/Spendings'
-import { AuthContext } from './Context/AuthContext'; 
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import NavBar from './Components/Navbar'
+import Spendings from './Components/Spendings';
+import AddExpense from './Components/AddExpense';
+import Stats from './Components/Stats'
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import NavBar from './Components/Navbar';
 
 function App() {
-  const {user, setUser, isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
 
-  console.log(user);
-  console.log(isAuthenticated);
   return (
     <Router>
       <div className="App">
         <NavBar />
         <Route exact path = "/user/login" component = {Login} />
         <Route exact path = "/user/register" component = {Register} />
-        <Route exact path = "/user/expense" component = {Spendings} />
+        <Route exact path = "/user/spendings" component = {Spendings} />
+        <Route exact path = "/user/expense" component = {AddExpense} />
+        <Route exact path = "/user/stats" component = {Stats} />
         <Route exact path = "/" component = {Home} />
       </div>
     </Router>

@@ -6,6 +6,7 @@ const JWT = require('jsonwebtoken');
 const Spendings = require('../models/Spendings');
 //const Idee = require('../models/Idee');
 const User = require('../models/User');
+const { ensureAuthenticated } = require('../auth');
 
 propSort = function(array, prop, desc) {
     array.sort(function(a, b) {
@@ -17,7 +18,7 @@ propSort = function(array, prop, desc) {
     });
 }   
 
-spenderRouter.post('/expense',passport.authenticate('jwt', {session: false}),(req,res)=>{
+spenderRouter.post('/expense',ensureAuthenticated,(req,res)=>{
     const spendings = new Spendings(req.body);
     spendings.save(err=>{
         if(err)
@@ -34,7 +35,7 @@ spenderRouter.post('/expense',passport.authenticate('jwt', {session: false}),(re
     })
 })
 
-spenderRouter.post('/delete',passport.authenticate('jwt', {session: false}), (req,res)=>{
+spenderRouter.post('/delete',ensureAuthenticated, (req,res)=>{
     const {id} = req.body;
     req.user.spendings.pull(id);
     req.user.save(err=>{
@@ -45,12 +46,12 @@ spenderRouter.post('/delete',passport.authenticate('jwt', {session: false}), (re
     })
 });
 
-spenderRouter.get('/getmoneys',passport.authenticate('jwt', {session: false}),(req,res)=>{
+spenderRouter.get('/getmoneys', ensureAuthenticated,(req,res)=>{
     User.findById({_id : req.user._id}).populate('spendings').exec((err,document)=>{
         if(err)
             res.status(500).json({message : {msgBody : "Error has occured", msgError: true}});
         else{
-            res.status(200).json({spendings : document.spendings, authenticated : true});
+            res.status(200).json(document.spendings);
         }
     });
 })
