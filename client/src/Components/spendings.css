@@ -2,3 +2,12 @@
 .icon {
     padding-left: 10px;
 }
+.logo0 {
+    display:none;
+  }
+  
+@media only screen and (min-width: 768px) {
+      .logo0 {
+        padding:1px;
+      }
+    }

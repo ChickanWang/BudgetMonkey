@@ -58,7 +58,7 @@ class Register extends React.Component {
     render() {
       return (
         <div>
-          <h1 className="form-group wrapper" font-size="16px" font-weight="bold"> Register</h1>
+          <h1 className="form-group wrapper center" font-size="16px" font-weight="bold"> Register</h1>
           
           <div className= "wrapper center">
             <small className="form-group">Have an account? <a href="/user/login">Log in!</a></small>

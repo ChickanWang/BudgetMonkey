@@ -30,6 +30,7 @@ spenderRouter.post('/expense',ensureAuthenticated,(req,res)=>{
                     res.status(500).json({message: {msgBody: "An Error has occurred.", msgError: true}});
                 else
                     res.status(200).json({message: {msgBody: "Success.", msgError: false}});
+                    console.log("EXPENSE FIRED");
             })
         }
     })

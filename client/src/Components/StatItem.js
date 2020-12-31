@@ -1,6 +1,5 @@
-import React , {useState, PureComponent} from "react";
+import React , {useState} from "react";
 import Card from '@material-ui/core/Card';
-//import {PieChart} from 'react-minimal-pie-chart';
 import { Grid } from '@material-ui/core';
 import { PieChart, Pie, Sector } from 'recharts';
 import "./spendings.css";
@@ -56,50 +55,50 @@ function StatItem(props) {
       ];
       
     const renderActiveShape = (poops) => {
-    const RADIAN = Math.PI / 180;
-    const {
-        cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
-        fill, payload, percent, value,
-    } = poops;
-    const sin = Math.sin(-RADIAN * midAngle);
-    const cos = Math.cos(-RADIAN * midAngle);
-    const sx = cx + (outerRadius + 10) * cos;
-    const sy = cy + (outerRadius + 10) * sin;
-    const mx = cx + (outerRadius + 30) * cos;
-    const my = cy + (outerRadius + 30) * sin;
-    const ex = mx + (cos >= 0 ? 1 : -1) * 22;
-    const ey = my;
-    const textAnchor = cos >= 0 ? 'start' : 'end';
-      
-    return (
-        <g>
-        <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
-        <Sector
-            cx={cx}
-            cy={cy}
-            innerRadius={innerRadius}
-            outerRadius={outerRadius}
-            startAngle={startAngle}
-            endAngle={endAngle}
-            fill={fill}
-        />
-        <Sector
-            cx={cx}
-            cy={cy}
-            startAngle={startAngle}
-            endAngle={endAngle}
-            innerRadius={outerRadius + 6}
-            outerRadius={outerRadius + 10}
-            fill={fill}
-        />
-        <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
-        <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`$${value}`}</text>
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
-            {`${(percent * 100).toFixed(2)}%`}
-        </text>
-        </g>
-    );
+        const RADIAN = Math.PI / 180;
+        const {
+            cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
+            fill, payload, percent, value,
+        } = poops;
+        const sin = Math.sin(-RADIAN * midAngle);
+        const cos = Math.cos(-RADIAN * midAngle);
+        const sx = cx + (outerRadius + 10) * cos;
+        const sy = cy + (outerRadius + 10) * sin;
+        const mx = cx + (outerRadius + 30) * cos;
+        const my = cy + (outerRadius + 30) * sin;
+        const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+        const ey = my;
+        const textAnchor = cos >= 0 ? 'start' : 'end';
+        
+        return (
+            <g>
+            <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
+            <Sector
+                cx={cx}
+                cy={cy}
+                innerRadius={innerRadius}
+                outerRadius={outerRadius}
+                startAngle={startAngle}
+                endAngle={endAngle}
+                fill={fill}
+            />
+            <Sector
+                cx={cx}
+                cy={cy}
+                startAngle={startAngle}
+                endAngle={endAngle}
+                innerRadius={outerRadius + 6}
+                outerRadius={outerRadius + 10}
+                fill={fill}
+            />
+            <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
+            <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+            <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`$${value}`}</text>
+            <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
+                {`${(percent * 100).toFixed(2)}%`}
+            </text>
+            </g>
+        );
     };
 
     const onPieEnter = (data, index) => {
@@ -112,7 +111,7 @@ function StatItem(props) {
                 <div className="col-10 offset-1"> 
                     <Card variant= "outlined">
                         <Grid container direction="row" alignItems="center">  
-                            <Grid item xs={6}> 
+                            <Grid item md={6} xs={12}> 
                                 <div className="left"> 
                                     <h2 style={{textDecorationLine:'underline'}}> {month} {props.year} </h2>
                                     <h5> Food Spending: ${props.food}</h5>
@@ -122,42 +121,26 @@ function StatItem(props) {
                                     <h4> Total Spending: ${props.total}</h4>
                                 </div>
                             </Grid>
-                            <Grid item xs={6}> 
-                                {/* <PieChart data={[
-                                                    { title: 'Food', value: props.food, color: '#249AA7' },
-                                                    { title: 'Lifestyle', value: props.lifestyle, color: '#6DBCDB' },
-                                                    { title: 'Indulgent', value: props.indulgent, color: '#FABD4A' },
-                                                    { title: 'Other', value: props.other, color: '#D7DADB' }]} 
-                                                    label={({ dataEntry }) => {
-                                                        if(dataEntry.value !== 0) {
-                                                            return `${dataEntry.title}: ${Math.round(dataEntry.percentage)}%`
-                                                        }
-                                                        else 
-                                                            return null;
-                                                    
-                                                    }}
-
-                                                    animate={true}
-                                                    radius={30}
-                                                    labelStyle= {{fontSize:"4px"}}
-                                                    /> */
-
-                                
-                                                    <PieChart width={800} height={400}>
-                                                        <Pie
-                                                        activeIndex={index}
-                                                        activeShape={renderActiveShape}
-                                                        data={data}
-                                                        cx={200}
-                                                        cy={200}
-                                                        innerRadius={65}
-                                                        outerRadius={80}
-                                                        fill="#00a86b"
-                                                        dataKey="value"
-                                                        onMouseEnter={onPieEnter}
-                                                        />
-                                                    </PieChart>}
-                            </Grid>
+                            {window.innerWidth >= 1000 ? 
+                                <Grid item md={6}> 
+                                    {
+                                        <PieChart width={800} height={400}>
+                                            <Pie
+                                            activeIndex={index}
+                                            activeShape={renderActiveShape}
+                                            data={data}
+                                            cx={200}
+                                            cy={200}
+                                            innerRadius={65}
+                                            outerRadius={80}
+                                            fill="#00a86b"
+                                            dataKey="value"
+                                            onMouseEnter={onPieEnter}
+                                            />
+                                        </PieChart>
+                                    }
+                                </Grid> 
+                            : <> </>}
                         </Grid>
                     </Card>
                 </div>

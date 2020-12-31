@@ -1,5 +1,4 @@
 import React , { useState }from "react"
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -31,13 +30,11 @@ const useStyles = makeStyles({
         '& > *': {
           textTransform: 'none !important',
         }
-    },card:{
-        background: '#D3D3D3'
     }
   });
 
 function ExpenseItem(props) {
-    const [id,setId] = useState({id: props.id})
+    const [id] = useState({id: props.id})
 
     const classes = useStyles()
 
@@ -66,8 +63,6 @@ function ExpenseItem(props) {
         }
     }
 
-    const callback = props.callback()
-
     const onClick = e => {
         ExpenseService.deleteSpending(id).then((data) => {
             props.callback()
@@ -78,16 +73,16 @@ function ExpenseItem(props) {
     return(
         <div className="container wrapper cardname">
             <div className="row"> 
-                <div className="col-6 offset-3"> 
-                    <Card className={classes.card} variant= "outlined">
+                <div className="col-md-6 offset-md-3"> 
+                    <Card variant= "outlined">
                         <CardContent>
                             <div> 
                                 <Grid container direction="row" alignItems="center">    
-                                    <Grid item xs={10}>      
+                                    <Grid item md={10} xs={10}>      
                                         {category()}
                                         <small><h5 className="cardname">{props.date.toString().substring(0,10)}</h5></small>
                                     </Grid> 
-                                    <Grid item xs={2}>  
+                                    <Grid item md={2} xs={2}>  
                                         <Button
                                         className={classes.join}
                                         variant={'contained'}

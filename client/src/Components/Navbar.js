@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {useContext} from 'react'
 import {Link} from 'react-router-dom'
 import {AuthContext} from '../Context/AuthContext'
@@ -15,9 +14,9 @@ function NavBar() {
     }
 
     return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-            <Link to= "/"><div className="navbar-brand"> Budget Monkey </div></Link>
+            <div className="navbar-brand"> BudgetMonkey </div>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
             </button>
@@ -28,19 +27,13 @@ function NavBar() {
 
                 // Authenticated Navbar
                 <> 
-                    <Link to= "/">
-                        <li className="nav-item nav-link">
-                            Homepage
-                        </li>
-                    </Link>
-
                     <Link to= "/user/expense">
                         <li className="nav-item nav-link">
                             Add Expense
                         </li>
                     </Link>
 
-                    <Link to= "/user/spendings">
+                    <Link to= "/user/spendings" >
                         <li className="nav-item nav-link">
                             View Spendings
                         </li>
@@ -51,8 +44,6 @@ function NavBar() {
                             View Stats
                         </li>
                     </Link>
-
-                    <Link to= "/"><button className = "btn btn-link nav-item nav-link" onClick={Logout}>Logout</button></Link>
                 </>
                 
                 // Unauthenticated Navbar
@@ -75,8 +66,13 @@ function NavBar() {
                         </li>
                     </Link>
                 </>}
-
             </ul>
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ml-auto">
+            { isAuthenticated ?
+                <Link to= "/"><button className = "btn btn-link nav-item nav-link" onClick={Logout}>Logout</button></Link> 
+            : <div></div>}
+            </ul>
+
             </div>
         </div>
     </nav>)

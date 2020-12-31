@@ -1,6 +1,6 @@
 export default {
     getSpendings: () => {
-        return fetch('http://localhost:5000/expenses/getmoneys', {
+        return fetch('http://localhost:5000/expenses/getmoneys/', {
             method: "GET",
             credentials: "include"
         })
@@ -8,8 +8,8 @@ export default {
             if(response.status !== 401){ 
                 console.log("req worked")
                 return response.json().then(data => {
-                    console.log("data", data)
-                    return data
+                    console.log("data", data);
+                    return data;
                 })
             }else{
                 console.log("req didn't work")
@@ -19,7 +19,7 @@ export default {
         })
     },
     createSpending: spending => {
-        return fetch('http://localhost:5000/expenses/expense', {
+        return fetch('http://localhost:5000/expenses/expense/', {
             method: 'post',
             body: JSON.stringify(spending),
             headers: {
@@ -34,7 +34,7 @@ export default {
         })
     },
     deleteSpending: id => {
-        return fetch('http://localhost:5000/expenses/delete', {
+        return fetch('http://localhost:5000/expenses/delete/', {
             method: 'post',
             body: JSON.stringify(id),
             headers: {

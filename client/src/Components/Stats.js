@@ -14,7 +14,7 @@ function Stats() {
             setStats(data)
             console.log(data);
         })
-    })
+    }, [])
 
     return (<div>
             {isAuthenticated ? 

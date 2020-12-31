@@ -1,6 +1,5 @@
 // Imports
-import React, {useState, useContext} from "react"
-import {AuthContext} from "../Context/AuthContext";
+import React, {useState} from "react"
 import ExpenseService from "../Services/ExpenseService";
 import Message from "./Message"
 
@@ -21,32 +20,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
-// Amount Input
-import FilledInput from '@material-ui/core/FilledInput';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import InputLabel from '@material-ui/core/InputLabel';
-import { makeStyles } from '@material-ui/core/styles';
-
-
 // CSS
 import "./Form.css"
-
-// Styles Amount Input
-const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    margin: {
-      margin: theme.spacing(1),
-    },
-    withoutLabel: {
-      marginTop: theme.spacing(3),
-    },
-    textField: {
-      width: '25ch',
-    },
-}));
 
 
 const AddExpense = props=>{
@@ -54,8 +29,6 @@ const AddExpense = props=>{
   const [spending,setSpending] = useState({name: "", cost : "", category : "", 
                                             date : parseISO(today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate())});
   const [message, setMessage] = useState(null);
-  const classes = useStyles();
-  const authContext = useContext(AuthContext);
 
   const onChange = e =>{
       setSpending({...spending,[e.target.name] : e.target.value});
@@ -63,7 +36,14 @@ const AddExpense = props=>{
 
   const onSubmit = e =>{
       e.preventDefault();
-      console.log(spending);
+      setSpending(() => {
+        return {
+          name: "",
+          cost: "",
+          category: "",
+          date : parseISO(today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate())
+        }
+      })
       ExpenseService.createSpending(spending).then(data=>{
             const {message} = data
               setMessage(message);
@@ -87,6 +67,7 @@ const AddExpense = props=>{
                         <TextField required 
                           name= "name"
                           className="form-control"
+                          value={spending.name}
                           onChange={onChange} 
                           label="Required"/>
                     </div>
@@ -121,18 +102,14 @@ const AddExpense = props=>{
                         </FormControl>
                     </div>
                     
-                    <div className= "label-group">
-                        <FormControl fullWidth className={classes.margin} variant="filled">
-                            <InputLabel htmlFor="filled-adornment-amount">Amount</InputLabel>
-                            <FilledInput
-                                id="filled-adornment-amount"
-                                name = "cost"
-                                value={spending.cost}
-                                onChange={handleChange}
-                                required={true}
-                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                            />
-                        </FormControl>
+                    <div className= "form-group">
+                        <label for= "cost">Amount ($):</label>
+                        <TextField required 
+                          name= "cost"
+                          className="form-control"
+                          value={spending.cost}
+                          onChange={handleChange}
+                          label="Required"/>
                     </div>
         
                     <div className= "wrapper center"> 

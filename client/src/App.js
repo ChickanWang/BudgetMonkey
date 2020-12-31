@@ -5,7 +5,7 @@ import Register from './Components/Register';
 import Spendings from './Components/Spendings';
 import AddExpense from './Components/AddExpense';
 import Stats from './Components/Stats'
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import NavBar from './Components/Navbar';
 
 function App() {

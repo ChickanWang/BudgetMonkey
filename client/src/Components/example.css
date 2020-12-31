@@ -1,0 +1,19 @@
+
+.icon {
+    padding-left: 10px;
+}
+
+.icon2 {
+    display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+    .icon {
+        display: none;
+    }
+
+    .icon2{
+        padding-left: 10px;
+    }
+}
+
