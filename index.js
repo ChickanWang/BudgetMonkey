@@ -24,7 +24,7 @@ app.use(passport.session());
 const port = process.env.PORT || 5000;
 const uri = process.env.ATLAS_URI;
 
-mongoose.connect(uri, 
+mongoose.connect(process.env.MONGODB_URI || uri, 
 {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 
 mongoose.connection.once('open', ()=>{
