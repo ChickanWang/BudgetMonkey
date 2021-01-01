@@ -15,7 +15,7 @@ const Login = props=>{
   }
 
   const login = user =>{
-    return fetch('http://localhost:5000/user/login',{
+    return fetch('/login',{
         method : "post",
         body : JSON.stringify(user),
         headers : {
