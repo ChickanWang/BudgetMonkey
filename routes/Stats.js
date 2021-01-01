@@ -75,7 +75,7 @@ function Stats(array) {
     return TotalStatstics;
 }
 
-statsRouter.get('/stats',ensureAuthenticated,(req,res)=>{
+statsRouter.post('/stats',ensureAuthenticated,(req,res)=>{
     res.send(Stats(req.user.spendings));
 });
 

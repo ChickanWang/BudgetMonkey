@@ -1,7 +1,7 @@
 export default {
     getSpendings: () => {
-        return fetch('http://localhost:5000/expenses/getmoneys/', {
-            method: "GET",
+        return fetch('/expenses/getmoneys/', {
+            method: "POST",
             credentials: "include"
         })
         .then(response => {
@@ -19,7 +19,7 @@ export default {
         })
     },
     createSpending: spending => {
-        return fetch('http://localhost:5000/expenses/expense/', {
+        return fetch('/expenses/expense/', {
             method: 'post',
             body: JSON.stringify(spending),
             headers: {
@@ -34,7 +34,7 @@ export default {
         })
     },
     deleteSpending: id => {
-        return fetch('http://localhost:5000/expenses/delete/', {
+        return fetch('/expenses/delete/', {
             method: 'post',
             body: JSON.stringify(id),
             headers: {

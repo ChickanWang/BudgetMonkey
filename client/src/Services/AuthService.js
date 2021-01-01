@@ -1,6 +1,6 @@
 export default {
     register: user => {
-        return fetch('http://localhost:5000/user/signup', {
+        return fetch('/user/signup', {
             method: "post",
             body: JSON.stringify(user),
             headers: {
@@ -10,15 +10,15 @@ export default {
     },
 
     logout: () => { 
-        return fetch('http://localhost:5000/user/logout', {
-            method: "GET",
+        return fetch('/user/logout', {
+            method: "POST",
             credentials: "include"
         });
     },
 
     isAuthenticated : ()=>{
-         return fetch('http://localhost:5000/user/authenticated', {
-             method: "GET",
+         return fetch('/user/authenticated', {
+             method: "POST",
              credentials: "include"
          })
                  .then(res=>{
@@ -33,8 +33,8 @@ export default {
      },
     
      user : () => {
-         return fetch('http://localhost:5000/user', {
-             method: "GET",
+         return fetch('/user', {
+             method: "POST",
              credentials: "include"
          }).then((res) => { 
              console.log(res);

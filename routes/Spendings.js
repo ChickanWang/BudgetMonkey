@@ -47,7 +47,7 @@ spenderRouter.post('/delete',ensureAuthenticated, (req,res)=>{
     })
 });
 
-spenderRouter.get('/getmoneys', ensureAuthenticated,(req,res)=>{
+spenderRouter.post('/getmoneys', ensureAuthenticated,(req,res)=>{
     User.findById({_id : req.user._id}).populate('spendings').exec((err,document)=>{
         if(err)
             res.status(500).json({message : {msgBody : "Error has occured", msgError: true}});

@@ -1,7 +1,7 @@
 export default {
     stats: () => {
-        return fetch('http://localhost:5000/stats/stats', {
-            method: "GET",
+        return fetch('/stats/stats', {
+            method: "POST",
             credentials: "include"
         }).then((response) => {
             if(response.status !== 401){ 

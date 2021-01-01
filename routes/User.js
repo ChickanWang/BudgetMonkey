@@ -62,17 +62,17 @@ userRouter.post('/login', (req,res,next) => {
   })(req, res, next);
 });
 
-userRouter.get('/logout', function(req, res){
+userRouter.post('/logout', function(req, res){
     req.logout();
     res.status(201).json({message : {msgBody : "Logged out!", msgError: false}})
 });
 
-userRouter.get('/authenticated', ensureAuthenticated,(req,res)=>{
+userRouter.post('/authenticated', ensureAuthenticated,(req,res)=>{
     const {name, username} = req.user;
     res.status(200).json({isAuthenticated : true, user : {username, name}});
 });
 
-userRouter.get('/', ensureAuthenticated,(req,res,next) =>{
+userRouter.post('/', ensureAuthenticated,(req,res,next) =>{
     if(req.user)
     {
         res.send(req.user)
