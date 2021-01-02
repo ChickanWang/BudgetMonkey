@@ -1,8 +1,10 @@
-import React from "react"
+import React, {useContext, useEffect}from "react"
 import Pickture from "./Homepage.png"
 import "./Homepage.css"
+import {AuthContext} from "../Context/AuthContext"
 
 function Homepage(props) {
+    const {isAuthenticated} = useContext(AuthContext);
 
    const onLog = e => {
         props.history.push('/user/login')
@@ -11,6 +13,11 @@ function Homepage(props) {
     const onStart = e => {
         props.history.push('/user/register')
     }
+
+    useEffect(() => {
+        if (isAuthenticated)
+            props.history.push('/user/spendings')
+    }, [isAuthenticated, props.history]) 
 
     return (
         <div className="row"> 

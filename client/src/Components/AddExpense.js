@@ -1,7 +1,8 @@
 // Imports
-import React, {useState} from "react"
+import React, {useState,useEffect,useContext} from "react"
 import ExpenseService from "../Services/ExpenseService";
 import Message from "./Message"
+import {AuthContext} from "../Context/AuthContext"
 
 
 // Material UI
@@ -13,7 +14,6 @@ import FormControl from '@material-ui/core/FormControl';
 
 // Calendar Input
 import DatePicker from "react-datepicker";
-import { parseISO } from 'date-fns' 
 import "react-datepicker/dist/react-datepicker.css";
 
 // Dropdown Menu Input
@@ -25,14 +25,21 @@ import "./Form.css"
 
 
 const AddExpense = props=>{
-  var today = new Date()
+  const {isAuthenticated} = useContext(AuthContext);
+  var today = new Date();
   const [spending,setSpending] = useState({name: "", cost : "", category : "", 
-                                            date : parseISO(today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate())});
+                                            date : today});
   const [message, setMessage] = useState(null);
 
   const onChange = e =>{
       setSpending({...spending,[e.target.name] : e.target.value});
   }
+
+  useEffect(()=>{
+    if (!isAuthenticated) {
+        props.history.push('/')
+    }
+  }, [isAuthenticated,props.history])
 
   const onSubmit = e =>{
       e.preventDefault();
@@ -40,8 +47,7 @@ const AddExpense = props=>{
         return {
           name: "",
           cost: "",
-          category: "",
-          date : parseISO(today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate())
+          category: ""
         }
       })
       ExpenseService.createSpending(spending).then(data=>{
@@ -87,7 +93,7 @@ const AddExpense = props=>{
                     <div className="form-group"> 
                         <body className="wrapper">Purchase Category: </body>
                         <FormControl style={{minWidth: 200}}>
-                            <Select
+                            <Select required
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 name="category"

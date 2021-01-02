@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react"
+import React, {useState, useContext, useEffect} from "react"
 import {AuthContext} from "../Context/AuthContext";
 import Message from "./Message"
 import TextField from '@material-ui/core/TextField';
@@ -13,6 +13,11 @@ const Login = props=>{
   const onChange = e =>{
       setUser({...user,[e.target.name] : e.target.value});
   }
+
+  useEffect(() => {
+    if (authContext.isAuthenticated)
+        props.history.push('/user/spendings')
+    }, [authContext.isAuthenticated, props.history]) 
 
   const login = user =>{
     return fetch('/user/login',{

@@ -16,6 +16,9 @@ const Spendings = props => {
     let timeOfDay;
 
     useEffect(()=>{
+            if (!isAuthenticated) {
+                props.history.push('/')
+            }
             ExpenseService.getSpendings().then(data =>{
                 setSpending(data);
                 setLoading(false);
@@ -23,7 +26,7 @@ const Spendings = props => {
             AuthService.isAuthenticated().then(data => {
                 setName(data.user.name)
             })
-    }, []);
+    }, [isAuthenticated, props.history]);
     
     const ParentCallback = () => {
         ExpenseService.getSpendings().then(data =>{
