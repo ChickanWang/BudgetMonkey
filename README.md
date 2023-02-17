@@ -1,5 +1,5 @@
 # BudgetMonkey
-BudgetMonkey is a full-stack MERN app that allows you to enter and view your daily spendings in a streamlined fashion. See for yourself where your money is going [here](https://budgetmonkey.herokuapp.com)!
+BudgetMonkey is a full-stack MERN app that allows you to enter and view your daily spendings in a streamlined fashion. See for yourself where your money is going!
 
 # Technologies Used 
 BudgetMonkey was created using the MERN stack. 
